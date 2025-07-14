@@ -17,10 +17,10 @@
 - [Data Pipeline Workflow](#data-pipeline-workflow)
 - [API Integration](#api-integration)
 - [AWS S3 Integration](#aws-s3-integration)
+- [AWS Glue Processing](#aws-glue-processing)
 - [Data Transformation](#data-transformation)
 - [Monitoring & Logging](#monitoring--logging)
 - [Troubleshooting](#troubleshooting)
-- [Contributing](#contributing)
 
 ## 🎯 Overview
 
@@ -425,6 +425,9 @@ your-bucket-name/
     └── reddit_20250715_142530.csv
 ```
 
+## ☁️ AWS Glue Processing
+
+
 ## 🔄 Data Transformation
 
 ### Transformation Pipeline
@@ -540,16 +543,5 @@ docker-compose up -d
 - Reduce batch size in configuration
 - Monitor resource usage with `docker stats`
 
-### Debug Mode:
-Enable debug logging by modifying `config/config.conf`:
-```ini
-[etl_settings]
-log_level = debug
-```
 
----
-
-**Project Maintainer**: Ritayan Patra  
-**Last Updated**: July 13, 2025  
-**Version**: 1.0.0
 
