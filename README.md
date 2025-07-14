@@ -3,7 +3,11 @@
 [![Python](https://img.shields.io/badge/python-v3.8+-blue.svg)](https://www.python.org/downloads/)
 [![Apache Airflow](https://img.shields.io/badge/Apache%20Airflow-3.0.0-017CEE.svg)](https://airflow.apache.org/)
 [![AWS S3](https://img.shields.io/badge/AWS-S3-FF9900.svg)](https://aws.amazon.com/s3/)
+[![AWS Glue](https://img.shields.io/badge/AWS-Glue-FF9900.svg)](https://aws.amazon.com/glue/)
+[![AWS Athena](https://img.shields.io/badge/AWS-Athena-FF9900.svg)](https://aws.amazon.com/athena/)
+[![AWS IAM](https://img.shields.io/badge/AWS-IAM-FF9900.svg)](https://aws.amazon.com/iam/)
 [![Docker](https://img.shields.io/badge/Docker-Compose-2496ED.svg)](https://docs.docker.com/compose/)
+[![PostgreSQL](https://img.shields.io/badge/PostgreSQL-14-336791.svg)](https://www.postgresql.org/)
 
 ## 📋 Table of Contents
 - [Overview](#overview)
@@ -43,6 +47,12 @@ graph TB
     D --> E[Local CSV Storage]
     E --> F[Upload to AWS S3]
     F --> G[S3 Bucket - Raw Data]
+    G --> J[AWS Glue Visual ETL]
+    J --> K[S3 Bucket - Processed Data]
+    K --> L[AWS Glue Crawlers]
+    L --> M[AWS Glue Data Catalog]
+    M --> N[Amazon Athena]
+    N --> O[Query Results & Analytics]
     
     H[PostgreSQL] --> B
     I[Docker Containers] --> B
@@ -52,16 +62,25 @@ graph TB
         C
         D
         E
+        J
     end
     
     subgraph "Storage Layer"
         G
+        K
         H
     end
     
     subgraph "Orchestration Layer"
         B
         I
+    end
+    
+    subgraph "AWS Analytics Layer"
+        L
+        M
+        N
+        O
     end
 ```
 
