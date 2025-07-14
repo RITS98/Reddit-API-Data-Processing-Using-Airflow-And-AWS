@@ -428,6 +428,80 @@ your-bucket-name/
 
 ## ☁️ AWS Glue Processing
 
+1. Create a Visual ETL in the AWS Glue Service
+<img width="1668" height="700" alt="image" src="https://github.com/user-attachments/assets/e82a59b1-ec02-47b9-b478-5158f6b435b8" />
+
+2. Create a transformed folder in the same bucket
+3. Create a visual pipeline connecting source and target.
+<img width="1598" height="686" alt="image" src="https://github.com/user-attachments/assets/93c8b608-30ff-492a-b1c3-664db718ae00" />
+
+5. Combine the last 3 columns
+<img width="1581" height="742" alt="image" src="https://github.com/user-attachments/assets/493f6867-e281-4160-a0d5-0b907863f1f6" />
+
+6. Drop the last 3 columns
+<img width="1564" height="696" alt="image" src="https://github.com/user-attachments/assets/2b203f57-a51c-4d53-b60b-5e85ad587db2" />
+
+7. Dump the transformed data in the the new folder
+<img width="1668" height="736" alt="image" src="https://github.com/user-attachments/assets/25521f32-93ec-4739-9d46-f89c090ffeba" />
+
+8. Choose the required IAM role so that the glue service has access to S3
+9. Save it
+10. Run the job.
+
+The transformation code in glue
+```
+import sys
+from awsglue.transforms import *
+from awsglue.utils import getResolvedOptions
+from pyspark.context import SparkContext
+from awsglue.context import GlueContext
+from awsglue.job import Job
+import gs_concat
+
+args = getResolvedOptions(sys.argv, ['JOB_NAME'])
+sc = SparkContext()
+glueContext = GlueContext(sc)
+spark = glueContext.spark_session
+job = Job(glueContext)
+job.init(args['JOB_NAME'], args)
+
+# Script generated for node Amazon S3
+AmazonS3_node1752458404431 = glueContext.create_dynamic_frame.from_options(format_options={"quoteChar": "\"", "withHeader": True, "separator": ",", "optimizePerformance": False}, connection_type="s3", format="csv", connection_options={"paths": ["s3://reddit-data-ritayan/raw/reddit_20250714_011720.csv"], "recurse": True}, transformation_ctx="AmazonS3_node1752458404431")
+
+# Script generated for node Concatenate Columns
+ConcatenateColumns_node1752458545256 = AmazonS3_node1752458404431.gs_concat(colName="ESS_Updated", colList=["edited", "spoiler", "stickied"], spacer="'-'")
+
+# Script generated for node Drop Fields
+DropFields_node1752458692209 = DropFields.apply(frame=ConcatenateColumns_node1752458545256, paths=["stickied", "spoiler", "edited"], transformation_ctx="DropFields_node1752458692209")
+
+# Script generated for node Transformed Data
+TransformedData_node1752458721380 = glueContext.write_dynamic_frame.from_options(frame=DropFields_node1752458692209, connection_type="s3", format="csv", connection_options={"path": "s3://reddit-data-ritayan/transformed/", "partitionKeys": []}, transformation_ctx="TransformedData_node1752458721380")
+
+job.commit()
+```
+
+<img width="1648" height="472" alt="image" src="https://github.com/user-attachments/assets/9f57ba7a-edb9-46fc-9f2e-63376c897652" />
+
+<img width="1289" height="449" alt="image" src="https://github.com/user-attachments/assets/6a33bb0f-771f-4b62-9849-933d42b34cce" />
+
+11. Create a Glue Crawler with Database
+<img width="1600" height="577" alt="image" src="https://github.com/user-attachments/assets/d3335d37-4c0b-4203-acf7-c31a8221429d" />
+12. Now create the glue crawler
+<img width="3481" height="1657" alt="image" src="https://github.com/user-attachments/assets/a82ee50b-4e29-458e-a131-06b467f5d8a8" />
+13. Run the crawler and the database will be populated with metadata information about the file
+<img width="1367" height="533" alt="image" src="https://github.com/user-attachments/assets/ab463de6-2e33-4384-83ce-28c736881af2" />
+
+<img width="1631" height="906" alt="image" src="https://github.com/user-attachments/assets/da53453c-f94e-48fd-9a65-27426634b210" />
+
+14. Now go to Athena and visualize the table
+
+<img width="1657" height="750" alt="image" src="https://github.com/user-attachments/assets/c4679023-3631-48ae-b8c7-1a2cb6cd122f" />
+
+<img width="1647" height="677" alt="image" src="https://github.com/user-attachments/assets/e1fc67c5-df6f-4f82-bb8a-4df7ff26183e" />
+
+Different analysis can be performed in the AWS Athena.
+
+
 
 ## 🔄 Data Transformation
 
