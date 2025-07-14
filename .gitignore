@@ -1,0 +1,10 @@
+__pycache__
+*/__pycache__/
+*.pyc
+*.pyo
+/postgres/data/
+*.db
+.DS_Store
+/config/config.conf
+*.log
+/logs/

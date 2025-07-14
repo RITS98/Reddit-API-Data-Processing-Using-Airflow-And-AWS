@@ -1,0 +1,5 @@
+id,title,score,num_comments,author,created_utc,url,over_18,edited,spoiler,stickied
+1lyvrbz,How do you handle daily ingests in a Duck Lake / Delta Lake setup?,23,11,OldSplit4942,2025-07-13 15:35:55,https://www.reddit.com/r/dataengineering/comments/1lyvrbz/how_do_you_handle_daily_ingests_in_a_duck_lake/,False,False,False,False
+1lz0tn1,Dedicated Pools for Synapse DWH,8,31,suitupyo,2025-07-13 19:01:40,https://www.reddit.com/r/dataengineering/comments/1lz0tn1/dedicated_pools_for_synapse_dwh/,False,False,False,False
+1lz2059,Airflow SMTP not supporting OAuth - what is the proper solution?,6,3,No-Statistician-491,2025-07-13 19:49:38,https://www.reddit.com/r/dataengineering/comments/1lz2059/airflow_smtp_not_supporting_oauth_what_is_the/,False,False,False,False
+1lz8glc,Is DSA necessary to focus on?,0,4,BigOrangeJuice,2025-07-14 00:31:11,https://www.reddit.com/r/dataengineering/comments/1lz8glc/is_dsa_necessary_to_focus_on/,False,False,False,False
