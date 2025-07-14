@@ -32,8 +32,6 @@ This project implements a comprehensive **Reddit Data Pipeline** using Apache Ai
 - **Cloud Storage**: Automatic upload to AWS S3 for scalable data storage
 - **Orchestration**: Apache Airflow for workflow management and scheduling
 - **Containerization**: Docker-based deployment for consistency across environments
-- **Monitoring**: Built-in logging and error handling
-- **Scalability**: Modular design for easy extension and maintenance
 
 ## 🏗️ Architecture
 
@@ -144,15 +142,10 @@ Before setting up this project, ensure you have:
   - Access Key ID and Secret Access Key
   - S3 bucket creation permissions
 
-## 🚀 Installation & Setup
+## 🚀 Setup
 
-### Step 1: Clone the Repository
-```bash
-git clone <repository-url>
-cd "Reddit Data Pipeline Engineering"
-```
 
-### Step 2: Set Up Reddit API Credentials
+### Step 1: Set Up Reddit API Credentials
 
 1. **Create Reddit Application**:
    - Go to https://www.reddit.com/prefs/apps
@@ -168,7 +161,7 @@ cd "Reddit Data Pipeline Engineering"
    reddit_client_id = YOUR_REDDIT_CLIENT_ID
    ```
 
-### Step 3: Set Up AWS Credentials
+### Step 2: Set Up AWS Credentials
 
 1. **Create AWS S3 Bucket**:
    - Go to AWS S3 Console
@@ -189,7 +182,7 @@ cd "Reddit Data Pipeline Engineering"
    aws_bucket_name = your-bucket-name
    ```
 
-### Step 4: Environment Variables
+### Step 3: Environment Variables
 Create a `.env` file in the project root:
 ```bash
 # Database
@@ -206,7 +199,7 @@ AWS_ACCESS_KEY_ID=your_access_key
 AWS_SECRET_ACCESS_KEY=your_secret_key
 ```
 
-### Step 5: Build and Start Services
+### Step 4: Build and Start Services
 ```bash
 # Build and start all services
 docker-compose up -d
@@ -218,7 +211,7 @@ docker-compose ps
 docker-compose logs airflow
 ```
 
-### Step 6: Access Airflow Web UI
+### Step 5: Access Airflow Web UI
 - **URL**: http://localhost:8002
 - **Username**: admin
 - **Password**: admin123
@@ -271,6 +264,9 @@ log_level = info
 3. **Manual Trigger**: Click "Trigger DAG" for immediate execution
 4. **Monitor Progress**: View task status and logs in real-time
 
+<img width="1684" height="822" alt="image" src="https://github.com/user-attachments/assets/45733bff-b7ba-41d5-9433-581d9ea6abfd" />
+
+
 ### Pipeline Configuration
 Modify the DAG parameters in `dags/reddit_data_ingestion.py`:
 
@@ -291,6 +287,9 @@ extract = PythonOperator(
 - **Local Files**: Check `/data/output/` for generated CSV files
 - **S3 Storage**: Files uploaded to `s3://your-bucket-name/raw/`
 - **Logs**: Monitor execution in Airflow UI or `/logs/` directory
+
+<img width="1274" height="416" alt="image" src="https://github.com/user-attachments/assets/6860bc40-a548-4cd3-8153-8d6db2b62c13" />
+
 
 ## 🔄 Data Pipeline Workflow
 
@@ -474,6 +473,13 @@ def transform_data(post_df: pd.DataFrame):
 - **Task Duration**: Performance metrics and execution times
 - **Error Tracking**: Failed task identification and error messages
 
+<img width="1683" height="762" alt="image" src="https://github.com/user-attachments/assets/4a6f30ca-32a7-41d1-8176-f852fe3002ff" />
+
+<img width="1686" height="671" alt="image" src="https://github.com/user-attachments/assets/fcab88ff-ec6e-4463-ae89-475a2d5b0433" />
+
+<img width="1692" height="555" alt="image" src="https://github.com/user-attachments/assets/5b44dcee-cc76-4ded-8b31-c4eab4fcb24e" />
+
+
 ### Log Locations:
 - **Airflow Logs**: `/logs/dag_id=reddit_data_ingestion/`
 - **Container Logs**: `docker-compose logs airflow`
@@ -540,44 +546,6 @@ Enable debug logging by modifying `config/config.conf`:
 [etl_settings]
 log_level = debug
 ```
-
-## 🤝 Contributing
-
-### Development Setup:
-1. Fork the repository
-2. Create a feature branch: `git checkout -b feature-name`
-3. Make changes and test locally
-4. Commit changes: `git commit -m "Add feature"`
-5. Push to branch: `git push origin feature-name`
-6. Create a Pull Request
-
-### Code Standards:
-- Follow PEP 8 style guidelines
-- Add docstrings to functions
-- Include error handling
-- Write unit tests for new features
-
-### Testing:
-```bash
-# Run tests (when implemented)
-python -m pytest tests/
-
-# Lint code
-flake8 .
-
-# Format code
-black .
-```
-
----
-
-## 📝 Notes
-
-- **Data Privacy**: Ensure compliance with Reddit's API terms of service
-- **Rate Limiting**: Reddit API has rate limits; adjust extraction frequency accordingly
-- **Cost Management**: Monitor AWS S3 usage to avoid unexpected charges
-- **Security**: Never commit credentials to version control
-- **Scalability**: Consider using Apache Spark for larger datasets
 
 ---
 
