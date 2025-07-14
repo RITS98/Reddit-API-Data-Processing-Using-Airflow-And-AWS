@@ -113,6 +113,7 @@ Reddit Data Pipeline Engineering/
 
 ### Cloud Services:
 - **AWS S3**: Scalable object storage for data lake
+- **AWS Glue**: Data transformation and analysis
 - **AWS IAM**: Identity and access management
 
 ### Development Tools:
